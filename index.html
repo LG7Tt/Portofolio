@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAYTH LUAY DAWOOD - Portfolio</title>
+
+    <!-- Favicon - Generated SVG with initials LLD -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
+
+    <!-- SEO and Social Sharing (Open Graph) Meta Tags -->
+    <meta name="description" content="Portfolio of Layth Luay Dawood, a Chemical Engineering Student & Data Analyst.">
+    <meta property="og:title" content="LAYTH LUAY DAWOOD - Portfolio">
+    <meta property="og:description" content="I'm an Iraqi chemical engineer who loves using data to solve engineering problems. I combine chemical process knowledge with data analysis skills to make factories and labs work better">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=1200&auto=format&fit=crop">
+    <meta property="og:url" content="#"> <!-- Replace with actual domain -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Stylesheets and Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+        }
+        /* Color Scheme & Dark Mode Variables */
+        :root {
+            --bg-color: #f8f9fa;
+            --bg-secondary-color: #ffffff;
+            --primary-blue: #0a2342;
+            --secondary-blue: #1e40af;
+            --accent-gold: #c5a35a;
+            --text-dark: #1a202c;
+            --text-light: #374151; /* Darkened for better contrast */
+            --border-color: #e2e8f0;
+            --success-green: #22c55e;
+        }
+        html.dark {
+            --bg-color: #0d1a2e;
+            --bg-secondary-color: #1a2a44;
+            --primary-blue: #1e40af;
+            --secondary-blue: #0a2342;
+            --accent-gold: #d4b36a;
+            --text-dark: #e2e8f0;
+            --text-light: #94a3b8;
+            --border-color: #334155;
+        }
+
+        /* General Styling */
+        .bg-primary { background-color: var(--primary-blue); }
+        .bg-secondary { background-color: var(--bg-secondary-color); }
+        .text-accent { color: var(--accent-gold); }
+        .border-accent { border-color: var(--accent-gold); }
+        .hover\:text-accent:hover { color: var(--accent-gold); }
+        .ring-accent { --tw-ring-color: var(--accent-gold); }
+        .border-default { border-color: var(--border-color); }
+
+        /* Active Nav Link Style */
+        .nav-link.active {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .section-title {
+            @apply text-4xl font-bold text-center mb-12;
+            color: var(--text-dark);
+        }
+        .section-subtitle {
+            @apply text-center text-lg mb-12 -mt-8;
+            color: var(--text-light);
+        }
+        .card {
+            @apply bg-secondary rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2;
+        }
+        .btn {
+            @apply inline-block font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-md transform hover:scale-105;
+        }
+        .btn-primary {
+            @apply bg-primary text-white;
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary-blue);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .btn-outline {
+            @apply bg-transparent border-2;
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        .dark .btn-outline {
+            color: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+        .btn-outline:hover {
+             background-color: var(--primary-blue);
+             color: white;
+        }
+        .dark .btn-outline:hover {
+            background-color: var(--accent-gold);
+            color: var(--primary-blue);
+        }
+        
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Page Loader */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+
+        /* Projects Section Dark Mode Fix */
+        .projects-bg {
+            background-color: var(--bg-color);
+        }
+        
+        .project-card {
+            background-color: var(--bg-secondary-color);
+            border-color: var(--border-color);
+        }
+        
+        .project-text {
+            color: var(--text-light);
+        }
+        
+        .project-image-bg {
+            background-color: var(--bg-color);
+        }
+    </style>
+</head>
+<body class="bg-bg-color text-text-dark transition-colors duration-300">
+
+    <!-- Page Loader -->
+    <div id="loader">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-accent"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-secondary/80 dark:bg-secondary/80 backdrop-blur-lg shadow-md sticky top-0 z-50 transition-colors duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-primary dark:text-accent">LAYTH LUAY DAWOOD Portofolio</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="nav-link text-text-light hover:text-accent transition duration-300">About</a>
+                <a href="#projects" class="nav-link text-text-light hover:text-accent transition duration-300">Projects</a>
+                <a href="#skills" class="nav-link text-text-light hover:text-accent transition duration-300">Skills</a>
+                <a href="#contact" class="nav-link text-text-light hover:text-accent transition duration-300">Contact Me</a>
+                <button id="dark-mode-toggle" aria-label="Toggle Dark Mode" class="text-text-light hover:text-accent text-xl"><i class="fas fa-moon"></i></button>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none text-primary dark:text-accent">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+    </header>
+    
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-secondary shadow-xl z-50 p-6 text-center md:hidden">
+    <button id="mobile-menu-close" class="absolute top-4 right-4 text-2xl text-text-light">&times;</button>
+    <div class="mt-12 space-y-4">
+        <a href="#about" class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition">About</a>
+        <a href="#projects" class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition">Projects</a>
+        <a href="#skills" class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition">Skills</a>
+        <a href="#contact" class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition">Contact Me</a>
+        <button id="dark-mode-toggle-mobile" aria-label="Toggle Dark Mode"
+            class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition text-2xl">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+</div>
+
+
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex items-center bg-secondary overflow-hidden">
+            <!-- tsParticles container -->
+            <div id="tsparticles" class="absolute inset-0 z-0"></div>
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between z-10">
+                <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 reveal">
+                    <span class="text-accent font-semibold text-4xl">LAYTH LUAY DAWOOD</span>
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-text-dark my-4"><span id="typed-headline"></span></h1>
+                    <p class="text-lg text-text-light max-w-xl mx-auto md:mx-0 font-medium">Fusing chemical engineering principles with data analytics to innovate and optimize complex systems.</p>
+                    <div class="mt-8 flex justify-center md:justify-start space-x-4">
+                    </div>
+                </div>
+ <div class="md:w-1/2 flex justify-center reveal">
+  <div class="relative w-80 h-80 md:w-96 md:h-96">
+    <div class="absolute inset-0 bg-primary rounded-full transform rotate-6 transition duration-500 hover:rotate-0 hover:scale-105"></div>
+    
+    <!-- Replaced with your local profile image -->
+    <img src="assets/profile.jpg" alt="LAYTH LUAY DAWOOD"
+         class="relative w-full h-full rounded-full object-cover shadow-2xl border-4 border-accent"
+         onerror="this.onerror=null;this.src='https://placehold.co/384x384/ffffff/0a2342?text=LLD';">
+  </div>
+</div>
+
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-24">
+            <div class="container mx-auto px-6 reveal">
+                <h2 class="section-title text-[#d4b36a] text-4xl">About Me</h2>
+                <p class="section-subtitle text-2xl">My background and professional journey.</p>
+                <div class="max-w-4xl mx-auto bg-secondary p-8 md:p-16 rounded-xl shadow-xl text-center">
+                    <h3 class="text-3xl font-bold text-text-dark mb-4">Bridging Engineering Disciplines</h3>
+                    <p class="text-text-light mb-4 text-center md:text-left">
+                        My journey began at the University of Baghdad in Information & Communication Engineering, building a robust foundation in data systems. Now, as a Chemical Engineering student at the University of Newcastle, UK, I'm merging this digital expertise with core process engineering principles.
+                    </p>
+                    <p class="text-text-light mb-8 text-center md:text-left">
+                       This unique synthesis allows me to tackle challenges from a dual perspective, using data-driven insights to optimize, model, and innovate within the chemical industry. I am passionate about applying my cross-disciplinary skills to solve real-world problems.
+                    </p>
+<div class="mt-6 pt-6 border-t border-default">
+    <h4 class="font-semibold text-text-dark mb-6">My Educational Institutions:</h4>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-x-12 gap-y-8">
+        <!-- Newcastle University Logo -->
+        <div class="h-30 w-40 overflow-hidden flex items-center justify-center bg-white shadow-md rounded-lg">
+            <img src="assets/NewcastleLOGO.png" alt="Newcastle University Logo" class="object-contain h-full w-full p-2" />
+        </div>
+        <!-- University of Baghdad Logo -->
+        <div class="h-50 w-40 overflow-hidden flex items-center justify-center bg-white shadow-md rounded-lg">
+            <img src="assets/UOBLOGO.png" alt="University of Baghdad Logo" class="object-contain h-full w-full p-2" />
+        </div>
+    </div>
+</div>
+
+        </section>
+
+        <!-- Projects Section - FIXED FOR DARK MODE -->
+        <section id="projects" class="py-24 projects-bg transition-colors duration-300">
+          <div class="container mx-auto px-6 reveal">
+            <h2 class="section-title text-[#d4b36a] text-4xl">Featured Projects</h2>
+            <p class="section-subtitle mb-12 text-2xl">A selection of my work in data analysis and engineering.</p>
+
+            <div class="max-w-5xl mx-auto project-card rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col md:flex-row overflow-hidden border">
+              
+              <!-- Image Side -->
+              <div class="md:w-1/2 flex items-center justify-center project-image-bg transition-colors duration-300">
+                <img 
+                  src="assets/projects/project_1.jpg" 
+                  alt="Data Science Jobs Analysis Project Image" 
+                  loading="lazy"
+                  class="w-full h-auto max-h-[400px] object-contain p-4"
+                  onerror="this.onerror=null;this.src='https://placehold.co/800x600/e5e7eb/111827?text=Project+Image';"
+                >
+              </div>
+
+              <!-- Text Side -->
+              <div class="md:w-1/2 p-8 flex flex-col justify-between">
+                <div>
+                  <h3 class="text-3xl font-bold text-accent mb-6">Data Science Jobs Analysis</h3>
+                  <p class="project-text mb-8 leading-relaxed">
+                    Whether you're exploring a career in data science, hiring for data roles, or simply curious about the industry's trends — this project is for you.<br><br>
+                    This is a comprehensive analysis of 32,000+ job records collected from various sources to uncover:<br>
+                    • Top roles in the Data Science field<br>
+                    • Key skills in demand<br>
+                    • Median salary benchmarks
+                  </p>
+                </div>
+
+                <div>
+                  <div class="flex flex-wrap gap-3 mb-8">
+                    <span class="bg-accent/20 text-accent hover:bg-blue-700 hover:text-white text-xs font-semibold px-3 py-1 rounded-full border border-accent hover:border-blue-700 transition-colors duration-300">Excel</span>
+                    <span class="bg-accent/20 text-accent hover:bg-blue-700 hover:text-white text-xs font-semibold px-3 py-1 rounded-full border border-accent hover:border-blue-700 transition-colors duration-300">Power Query</span>
+                    <span class="bg-accent/20 text-accent hover:bg-blue-700 hover:text-white text-xs font-semibold px-3 py-1 rounded-full border border-accent hover:border-blue-700 transition-colors duration-300">Power Pivot</span>
+                    <span class="bg-accent/20 text-accent hover:bg-blue-700 hover:text-white text-xs font-semibold px-3 py-1 rounded-full border border-accent hover:border-blue-700 transition-colors duration-300">Data Visualization</span>
+                  </div>
+
+<a href="https://github.com/LG7Tt/Data_Science_Jobs_Analysis" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="inline-flex items-center justify-center space-x-2 px-6 py-3 rounded-full bg-primary text-white hover:bg-secondary-blue transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+>
+   <span>View Repository</span>
+   <i class="fas fa-external-link-alt"></i>
+</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+<!-- Skills Section -->
+<section id="skills" class="py-24">
+    <div class="container mx-auto px-6 reveal">
+        <h2 class="section-title text-4xl text-[#d4b36a]">My Expertise</h2>
+        <p class="section-subtitle text-2xl">Core competencies and technical skills.</p>
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <!-- Python -->
+            <div class="bg-secondary p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                <i class="fab fa-python text-4xl text-[#d4b36a] group-hover:text-blue-700 transition-colors duration-300 mb-3"></i>
+                <h3 class="font-semibold text-lg text-text-dark">Python</h3>
+            </div>
+
+            <!-- MATLAB -->
+            <div class="bg-secondary p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                <i class="fas fa-calculator text-4xl text-[#d4b36a] group-hover:text-blue-700 transition-colors duration-300 mb-3"></i>
+                <h3 class="font-semibold text-lg text-text-dark">MATLAB</h3>
+            </div>
+
+            <!-- SQL -->
+            <div class="bg-secondary p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                <i class="fas fa-database text-4xl text-[#d4b36a] group-hover:text-blue-700 transition-colors duration-300 mb-3"></i>
+                <h3 class="font-semibold text-lg text-text-dark">SQL</h3>
+            </div>
+
+            <!-- Excel -->
+            <div class="bg-secondary p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                <i class="fas fa-file-excel text-4xl text-[#d4b36a] group-hover:text-blue-700 transition-colors duration-300 mb-3"></i>
+                <h3 class="font-semibold text-lg text-text-dark">Excel</h3>
+            </div>
+
+            <!-- Google Sheets -->
+            <div class="bg-secondary p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                <i class="fas fa-table text-4xl text-[#d4b36a] group-hover:text-blue-700 transition-colors duration-300 mb-3"></i>
+                <h3 class="font-semibold text-lg text-text-dark">Google Sheets</h3>
+            </div>
+<!-- Prompt Engineering -->
+<div class="bg-secondary p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+    <i class="fas fa-robot text-4xl text-[#d4b36a] group-hover:text-blue-700 transition-colors duration-300 mb-3"></i>
+    <h3 class="font-semibold text-lg text-text-dark">Prompt Engineering</h3>
+</div>  
+<div class="bg-secondary p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+    <i class="fas fa-chart-line text-4xl text-[#d4b36a] group-hover:text-blue-700 transition-colors duration-300 mb-3"></i>
+    <h3 class="font-semibold text-lg text-text-dark">Data Analytics</h3>
+</div>
+<!-- C++ -->
+<div class="bg-secondary p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+    <i class="fas fa-code text-4xl text-[#d4b36a] group-hover:text-blue-700 transition-colors duration-300 mb-3"></i>
+    <h3 class="font-semibold text-lg text-text-dark">C++</h3>
+</div>
+        </div>
+    </div>
+</section>
+
+        <!-- Contact Section
+        <section id="contact" class="py-24 bg-secondary">
+            <div class="container mx-auto px-6 reveal">
+                <h2 class="section-title text-4xl text-[#d4b36a]" >Let's Connect</h2>
+                <p class="section-subtitle text-2xl ">Open to new opportunities and collaborations.</p>
+                <div class="max-w-2xl mx-auto bg-bg-color p-8 rounded-xl shadow-lg">
+                    For a real deployment, you would replace the '#' with your Formspree endpoint
+                    <form id="contact-form" action="https://formspree.io/f/your_form_id" method="POST" novalidate>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <input type="text" id="name" name="name" placeholder="Your Name" class="w-full bg-secondary px-4 py-3 border border-default rounded-lg focus:outline-none focus:ring-2 ring-accent" required>
+                                <p class="text-red-500 text-xs italic mt-1 hidden">Please enter your name.</p>
+                            </div>
+                            <div>
+                                <input type="email" id="email" name="email" placeholder="Your Email" class="w-full bg-secondary px-4 py-3 border border-default rounded-lg focus:outline-none focus:ring-2 ring-accent" required>
+                                <p class="text-red-500 text-xs italic mt-1 hidden">Please enter a valid email address.</p>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5" class="w-full bg-secondary px-4 py-3 border border-default rounded-lg focus:outline-none focus:ring-2 ring-accent" required></textarea>
+                            <p class="text-red-500 text-xs italic mt-1 hidden">Please enter a message.</p>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary w-full md:w-auto">Send Message</button>
+                        </div>
+                    </form>
+                    <div id="success-message" class="hidden mt-6 text-center p-4 rounded-lg" style="background-color: var(--success-green); color: white;">
+                        <p>Thank you for your message! I will get back to you shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-secondary/80 backdrop-blur-lg shadow-md py-12 transition-colors duration-300">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-2xl font-semibold mb-4 text-primary dark:text-accent">LAYTH LUAY DAWOOD Portofolio</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://github.com/LG7Tt" target="_blank" rel="noopener" aria-label="GitHub Profile" class="text-2xl text-text-light hover:text-accent transition-colors duration-300 transform hover:scale-110"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/laythdawood/" target="_blank" rel="noopener" aria-label="LinkedIn Profile" class="text-2xl text-text-light hover:text-accent transition-colors duration-300 transform hover:scale-110"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.credly.com/users/layth-luay" target="_blank" rel="noopener" aria-label="Credly Profile" class="text-2xl text-text-light hover:text-accent transition-colors duration-300 transform hover:scale-110">
+  <i class="fas fa-certificate"></i>
+</a>
+
+              </div>
+            <p class="text-sm text-text-light">&copy; 2025 LAYTH LUAY DAWOOD. All rights reserved. Designed with passion.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+    // --- Page Loader ---
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // --- Dark Mode Toggle ---
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
+        const sunIcon = '<i class="fas fa-sun"></i>';
+        const moonIcon = '<i class="fas fa-moon"></i>';
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                darkModeToggle.innerHTML = sunIcon;
+                darkModeToggleMobile.innerHTML = sunIcon;
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                darkModeToggle.innerHTML = moonIcon;
+                darkModeToggleMobile.innerHTML = moonIcon;
+                localStorage.setItem('theme', 'light');
+            }
+            // Must re-init particles for color change
+            initParticles(); 
+        };
+
+        const toggleTheme = () => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+        };
+
+        darkModeToggle.addEventListener('click', toggleTheme);
+        darkModeToggleMobile.addEventListener('click', toggleTheme);
+        
+        // Apply saved theme on initial load
+        applyTheme(localStorage.getItem('theme'));
+
+        // --- Mobile Menu ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileLinks = document.querySelectorAll('.nav-link-mobile');
+        
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
+        mobileMenuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+        // --- Typed.js Headline ---
+        new Typed('#typed-headline', {
+            strings: ["Chemical Engineering Student.", "Data Analyst.", "Process Optimizer."],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            backDelay: 2000,
+        });
+
+        // --- tsParticles Background ---
+        function initParticles() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const particleColor = isDark ? "#94a3b8" : "#4a5568";
+            const linkColor = isDark ? "#c5a35a" : "#0a2342";
+
+            tsParticles.load("tsparticles", {
+                fpsLimit: 60,
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: particleColor },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: "none",
+                        out_mode: "out",
+                    },
+                    links: {
+                        enable: true,
+                        distance: 150,
+                        color: linkColor,
+                        opacity: 0.4,
+                        width: 1,
+                    },
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "grab" },
+                        onclick: { enable: true, mode: "push" },
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        push: { particles_nb: 4 },
+                    },
+                },
+                retina_detect: true,
+            });
+        }
+        
+        // --- Scroll Reveal Animation ---
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // --- Active Navigation on Scroll ---
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-30% 0px -70% 0px' });
+
+        sections.forEach(section => navObserver.observe(section));
+        
+        // --- Contact Form Handling ---
+        const form = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', function (e) {
+            // Prevent default for JS validation, but allow submission to Formspree
+            e.preventDefault(); 
+            let isValid = true;
+
+            form.querySelectorAll('p.text-red-500').forEach(p => p.classList.add('hidden'));
+            form.querySelectorAll('input, textarea').forEach(el => el.classList.remove('border-red-500'));
+
+            const name = form.querySelector('#name');
+            if (name.value.trim() === '') {
+                isValid = false;
+                name.classList.add('border-red-500');
+                name.nextElementSibling.classList.remove('hidden');
+            }
+
+            const email = form.querySelector('#email');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email.value.trim() === '' || !emailPattern.test(email.value)) {
+                isValid = false;
+                email.classList.add('border-red-500');
+                email.nextElementSibling.classList.remove('hidden');
+            }
+
+            const message = form.querySelector('#message');
+            if (message.value.trim() === '') {
+                isValid = false;
+                message.classList.add('border-red-500');
+                message.nextElementSibling.classList.remove('hidden');
+            }
+
+            if (isValid) {
+                const formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        form.style.display = 'none';
+                        successMessage.classList.remove('hidden');
+                        setTimeout(() => {
+                            form.reset();
+                            form.style.display = 'block';
+                            successMessage.classList.add('hidden');
+                        }, 5000);
+                    } else {
+                        // Handle server errors or issues with Formspree
+                        alert('Oops! There was a problem submitting your form. Please try again later.');
+                    }
+                }).catch(error => {
+                    // Handle network errors
+                    alert('Oops! There was a network error. Please check your connection and try again.');
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>
