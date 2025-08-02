@@ -20,7 +20,243 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+<!--   <script>
+    // --- Page Loader ---
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // --- Dark Mode Toggle ---
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
+        const sunIcon = '<i class="fas fa-sun"></i>';
+        const moonIcon = '<i class="fas fa-moon"></i>';
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                darkModeToggle.innerHTML = sunIcon;
+                darkModeToggleMobile.innerHTML = sunIcon;
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                darkModeToggle.innerHTML = moonIcon;
+                darkModeToggleMobile.innerHTML = moonIcon;
+                localStorage.setItem('theme', 'light');
+            }
+            // Must re-init particles for color change
+            initParticles(); 
+        };
+
+        const toggleTheme = () => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+        };
+
+        darkModeToggle.addEventListener('click', toggleTheme);
+        darkModeToggleMobile.addEventListener('click', toggleTheme);
+        
+        // Apply saved theme on initial load
+        applyTheme(localStorage.getItem('theme'));
+
+        // --- Mobile Menu ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileLinks = document.querySelectorAll('.nav-link-mobile');
+        
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
+        mobileMenuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+        // --- Typed.js Headline ---
+        new Typed('#typed-headline', {
+            strings: ["Chemical Engineering Student.", "Data Analyst.", "Process Optimizer."],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            backDelay: 2000,
+        });
+
+        // --- tsParticles Background ---
+        function initParticles() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const particleColor = isDark ? "#94a3b8" : "#4a5568";
+            const linkColor = isDark ? "#c5a35a" : "#0a2342";
+
+            tsParticles.load("tsparticles", {
+                fpsLimit: 60,
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: particleColor },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: "none",
+                        out_mode: "out",
+                    },
+                    links: {
+                        enable: true,
+                        distance: 150,
+                        color: linkColor,
+                        opacity: 0.4,
+                        width: 1,
+                    },
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "grab" },
+                        onclick: { enable: true, mode: "push" },
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        push: { particles_nb: 4 },
+                    },
+                },
+                retina_detect: true,
+            });
+        }
+        
+        // --- Scroll Reveal Animation ---
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // --- Active Navigation on Scroll ---
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-30% 0px -70% 0px' });
+
+        sections.forEach(section => navObserver.observe(section));
+        
+        // --- Contact Form Handling ---
+        const form = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                // Prevent default for JS validation, but allow submission to Formspree
+                e.preventDefault(); 
+                let isValid = true;
+
+                form.querySelectorAll('p.text-red-500').forEach(p => p.classList.add('hidden'));
+                form.querySelectorAll('input, textarea').forEach(el => el.classList.remove('border-red-500'));
+
+                const name = form.querySelector('#name');
+                if (name.value.trim() === '') {
+                    isValid = false;
+                    name.classList.add('border-red-500');
+                    name.nextElementSibling.classList.remove('hidden');
+                }
+
+                const email = form.querySelector('#email');
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email.value.trim() === '' || !emailPattern.test(email.value)) {
+                    isValid = false;
+                    email.classList.add('border-red-500');
+                    email.nextElementSibling.classList.remove('hidden');
+                }
+
+                const message = form.querySelector('#message');
+                if (message.value.trim() === '') {
+                    isValid = false;
+                    message.classList.add('border-red-500');
+                    message.nextElementSibling.classList.remove('hidden');
+                }
+
+                if (isValid) {
+                    const formData = new FormData(form);
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            form.style.display = 'none';
+                            successMessage.classList.remove('hidden');
+                            setTimeout(() => {
+                                form.reset();
+                                form.style.display = 'block';
+                                successMessage.classList.add('hidden');
+                            }, 5000);
+                        } else {
+                            // Handle server errors or issues with Formspree
+                            alert('Oops! There was a problem submitting your form. Please try again later.');
+                        }
+                    }).catch(error => {
+                        // Handle network errors
+                        alert('Oops! There was a network error. Please check your connection and try again.');
+                    });
+                }
+            });
+        }
+
+        // --- Credly Badge Loading with Fallback ---
+        function initCredlyBadges() {
+            // Wait for Credly script to load
+            setTimeout(() => {
+                const badgePlaceholders = document.querySelectorAll('.badge-placeholder');
+                
+                badgePlaceholders.forEach((placeholder, index) => {
+                    const credlyDiv = placeholder.querySelector('[data-share-badge-id]');
+                    const fallback = placeholder.querySelector('.fallback-badge');
+                    
+                    // Check if Credly loaded the iframe after 3 seconds
+                    setTimeout(() => {
+                        const iframe = placeholder.querySelector('iframe');
+                        if (!iframe) {
+                            // Show fallback if no iframe was created
+                            credlyDiv.style.display = 'none';
+                            fallback.classList.remove('hidden');
+                            
+                            // Make fallback clickable to open badge on Credly
+                            fallback.style.cursor = 'pointer';
+                            fallback.addEventListener('click', () => {
+                                const badgeId = credlyDiv.getAttribute('data-share-badge-id');
+                                window.open(`https://www.credly.com/badges/${badgeId}`, '_blank');
+                            });
+                        }
+                    }, 3000);
+                });
+            }, 1000);
+        }
+
+        // Initialize badges when page loads
+        initCredlyBadges();
+    });
+</script>-->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -97,8 +333,8 @@
             border-color: var(--accent-gold);
         }
         .btn-outline:hover {
-             background-color: var(--primary-blue);
-             color: white;
+                background-color: var(--primary-blue);
+                color: white;
         }
         .dark .btn-outline:hover {
             background-color: var(--accent-gold);
@@ -124,7 +360,27 @@
         #mobile-menu.open {
             transform: translateX(0);
         }
+/* Mobile Menu Link Styling */
+.nav-button {
+    @apply block w-full text-center text-lg font-semibold py-3 rounded-lg;
+    color: var(--text-light); /* Sets the default text color */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover */
+}
 
+.nav-button:hover {
+    color: var(--accent-gold); /* Changes text to gold on hover */
+    background-color: rgba(197, 163, 90, 0.1); /* Adds a subtle gold background on hover */
+}
+
+/* Ensures the dark mode icon also changes color correctly on hover */
+.nav-button:hover i {
+    color: var(--accent-gold);
+}
+
+/* Specific styling for the dark mode toggle icon within the button */
+html.dark .nav-button .fa-sun {
+     color: var(--primary-blue);
+}
         /* Page Loader */
         #loader {
             position: fixed;
@@ -158,6 +414,7 @@
             background-color: var(--bg-color);
         }
     </style>
+
 </head>
 <body class="bg-bg-color text-text-dark transition-colors duration-300">
 
@@ -184,20 +441,18 @@
     </header>
     
 <!-- Mobile Menu -->
-<div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-secondary shadow-xl z-50 p-6 text-center md:hidden">
+<div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-secondary shadow-xl z-50 p-6 md:hidden">
     <button id="mobile-menu-close" class="absolute top-4 right-4 text-2xl text-text-light">&times;</button>
-    <div class="mt-12 space-y-4">
-        <a href="#about" class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition">About</a>
-        <a href="#projects" class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition">Projects</a>
-        <a href="#skills" class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition">Skills</a>
-        <a href="#contact" class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition">Contact Me</a>
-        <button id="dark-mode-toggle-mobile" aria-label="Toggle Dark Mode"
-            class="nav-button block w-full py-2 px-4 bg-accent text-white rounded-lg hover:bg-accent-dark transition text-2xl">
+    <div class="mt-16 space-y-5 flex flex-col">
+        <a href="#about" class="nav-button">About</a>
+        <a href="#projects" class="nav-button">Projects</a>
+        <a href="#skills" class="nav-button">Skills</a>
+        <a href="#contact" class="nav-button">Contact Me</a>
+        <button id="dark-mode-toggle-mobile" aria-label="Toggle Dark Mode" class="nav-button">
             <i class="fas fa-moon"></i>
         </button>
     </div>
 </div>
-
 
 
     <!-- Main Content -->
@@ -461,16 +716,29 @@
         // Apply saved theme on initial load
         applyTheme(localStorage.getItem('theme'));
 
-        // --- Mobile Menu ---
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileLinks = document.querySelectorAll('.nav-link-mobile');
-        
-        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
-        mobileMenuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
-        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+// --- Mobile Menu ---
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuClose = document.getElementById('mobile-menu-close');
+// Corrected the selector to target the links inside the mobile menu by their class
+const mobileLinks = document.querySelectorAll('#mobile-menu .nav-button');
 
+// When the hamburger icon is clicked, show the menu
+mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.add('open');
+});
+
+// When the close button (X) is clicked, hide the menu
+mobileMenuClose.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+});
+
+// When a link inside the mobile menu is clicked, hide the menu
+mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+    });
+});
         // --- Typed.js Headline ---
         new Typed('#typed-headline', {
             strings: ["Chemical Engineering Student.", "Data Analyst.", "Process Optimizer."],
@@ -618,5 +886,6 @@
         });
     });
     </script>
+    <script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
 </body>
 </html>
