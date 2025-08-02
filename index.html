@@ -717,6 +717,48 @@ html.dark .nav-button .fa-sun {
         </div>
     </div>
 </section>
+
+<section id="contact" class="py-24 bg-bg-color">
+    <div class="container mx-auto px-6 reveal">
+        <h2 class="section-title text-4xl text-[#d4b36a]">Let's Connect</h2>
+        <p class="section-subtitle text-2xl">Open to new opportunities and collaborations.</p>
+        
+        <div class="max-w-2xl mx-auto bg-secondary p-8 rounded-xl shadow-lg">
+            
+            <form id="contact-form" action="https://formspree.io/f/mwpqnqpz" method="POST" novalidate>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="name" class="block text-text-light mb-2">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" class="w-full bg-bg-color px-4 py-3 border border-default rounded-lg focus:outline-none focus:ring-2 ring-accent" required>
+                        <p class="text-red-500 text-xs italic mt-1 hidden">Please enter your name.</p>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-text-light mb-2">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" class="w-full bg-bg-color px-4 py-3 border border-default rounded-lg focus:outline-none focus:ring-2 ring-accent" required>
+                        <p class="text-red-500 text-xs italic mt-1 hidden">Please enter a valid email address.</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-text-light mb-2">Message</label>
+                    <textarea id="message" name="message" placeholder="Your Message" rows="5" class="w-full bg-bg-color px-4 py-3 border border-default rounded-lg focus:outline-none focus:ring-2 ring-accent" required></textarea>
+                    <p class="text-red-500 text-xs italic mt-1 hidden">Please enter a message.</p>
+                </div>
+<div class="text-center">
+    <button type="submit" 
+            class="btn w-full md:w-auto rounded-full" 
+            style="background-color: #d4b36a; color: #000000; font-weight: 600; padding-left: 2rem; padding-right: 2rem;">
+        Send Message
+    </button>
+</div>
+            </form>
+            
+<div id="success-message" class="hidden mt-6 text-center p-4 rounded-lg" style="background-color: #d4b36a; color: #000000;">
+    <p>Thank you for your message! I will get back to you shortly.</p>
+</div>
+        </div>
+    </div>
+</section>
+
     </main>
 
     <!-- Footer -->
